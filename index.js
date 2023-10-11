@@ -14,6 +14,9 @@ await listDB(client);
 }
 async function listDB(client) {
     let databaseList = await client.db().admin().listDatabases();
-    console.log(databaseList);
+    //console.log(databaseList);
+    databaseList.databases.forEach(database => {
+        console.log("Nazwa: " + database.name + " ,Rozmiar: " + database.sizeOnDisk);
+    });
 }
 main();
