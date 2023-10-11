@@ -2,7 +2,18 @@ const mongoString = "mongodb+srv://nikospokojest:KupaDupa123@knak.vithec9.mongod
 const { MongoClient } = require("mongodb");
 const client = new MongoClient(mongoString);
 async function main() {
+    try {
 await client.connect();
-await client.close();
+await listDB(client);
+    } catch (error) {
+        console.error(error);
+    } finally {
+       await client.close(); 
+    }
+
+}
+async function listDB(client) {
+    let databaseList = await client.db().admin().listDatabases();
+    console.log(databaseList);
 }
 main();
